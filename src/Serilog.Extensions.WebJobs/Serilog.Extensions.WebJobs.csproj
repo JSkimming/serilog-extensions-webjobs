@@ -7,6 +7,16 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <CodeAnalysisRuleSet>stylecop.ruleset</CodeAnalysisRuleSet>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Authors>James Skimming</Authors>
+    <Description>Serilog extension to enable logging through serilog for Microsoft Azure WebJobs.</Description>
+    <Copyright>Copyright © James Skimming 2017</Copyright>
+    <PackageLicenseUrl>https://github.com/JSkimming/serilog-extensions-webjobs/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/JSkimming/serilog-extensions-webjobs</PackageProjectUrl>
+    <PackageIconUrl>https://serilog.net/images/serilog-extension-nuget.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/JSkimming/serilog-extensions-webjobs</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>serilog logging semantic structured microsoft azure webjobs web jobs</PackageTags>
+  </PropertyGroup>
 
   <!--
   Force the net45 build to generate non Portable PDB until such time that OpenCover supports Portable PDBs

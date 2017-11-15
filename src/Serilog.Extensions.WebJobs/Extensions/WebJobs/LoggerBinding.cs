@@ -103,6 +103,7 @@ namespace Serilog.Extensions.WebJobs
                 throw new ArgumentNullException(nameof(trace));
 
             var configuration = new LoggerConfiguration()
+                .MinimumLevel.Verbose()
                 .Enrich.WithProperty("FunctionInstanceId", functionInstanceId)
                 .WriteTo.TraceWriter(trace);
 

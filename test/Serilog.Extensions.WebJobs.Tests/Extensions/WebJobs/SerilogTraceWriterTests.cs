@@ -7,11 +7,11 @@ namespace Serilog.Extensions.WebJobs
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
+    using AutoFixture;
+    using AutoFixture.AutoMoq;
     using FluentAssertions;
     using Microsoft.Azure.WebJobs.Host;
     using Moq;
-    using Ploeh.AutoFixture;
-    using Ploeh.AutoFixture.AutoMoq;
     using Serilog.Events;
     using Xunit;
 

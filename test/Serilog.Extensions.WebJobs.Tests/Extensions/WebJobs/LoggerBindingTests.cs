@@ -8,11 +8,12 @@ namespace Serilog.Extensions.WebJobs
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
+    using AutoFixture;
+    using AutoFixture.AutoMoq;
     using FluentAssertions;
     using Microsoft.Azure.WebJobs.Host.Bindings;
     using Microsoft.Azure.WebJobs.Host.Protocols;
-    using Ploeh.AutoFixture;
-    using Ploeh.AutoFixture.AutoMoq;
+    using Newtonsoft.Json.Linq;
     using Xunit;
 
     public class LoggerBindingShould
@@ -40,6 +41,10 @@ namespace Serilog.Extensions.WebJobs
             _sut = new LoggerBinding(ParameterInfo, () => _currentLoggerFactory());
 
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
+
+            // A JToken is needed deep into the object graph for a ValueBindingContext
+            fixture.Inject<JToken>(new JObject());
+
             _valueBindingContext = fixture.Create<ValueBindingContext>();
             _bindingContext = fixture.Create<BindingContext>();
         }

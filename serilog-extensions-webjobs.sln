@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.12
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6618D033-4F21-4C1C-926A-B4074F1021F4}"
 EndProject
@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{60BABF5E-A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serilog.Extensions.WebJobs", "src\Serilog.Extensions.WebJobs\Serilog.Extensions.WebJobs.csproj", "{A864CA59-48FF-49E6-BCD0-CCA2CCA41A63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serilog.Extensions.WebJobs.Tests", "test\Serilog.Extensions.WebJobs.Tests\Serilog.Extensions.WebJobs.Tests.csproj", "{6F4DB8EA-0381-4FB3-B178-0782FF7714A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serilog.Extensions.WebJobs.Tests", "test\Serilog.Extensions.WebJobs.Tests\Serilog.Extensions.WebJobs.Tests.csproj", "{6F4DB8EA-0381-4FB3-B178-0782FF7714A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,5 +32,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{A864CA59-48FF-49E6-BCD0-CCA2CCA41A63} = {6618D033-4F21-4C1C-926A-B4074F1021F4}
 		{6F4DB8EA-0381-4FB3-B178-0782FF7714A0} = {60BABF5E-A703-4CF9-838F-C7D6125071DA}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A86EF404-0654-4581-B946-B0DC99FF3275}
 	EndGlobalSection
 EndGlobal

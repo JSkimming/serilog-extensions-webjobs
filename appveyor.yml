@@ -24,6 +24,10 @@ branches:
 # Operating system (build VM template)
 image: Visual Studio 2017
 
+environment:
+  COVERALLS_REPO_TOKEN:
+    secure: y58nAbztko+kSar3VzPnEKhC8W4mA4G0dbtsu4EzpT1G0taRabXjF+v0eggpwcTr
+
 # scripts that are called at very beginning, before repo cloning
 init:
   # This gives the login details for the build instance so you can RDP to it.
@@ -44,15 +48,8 @@ assembly_info:
 #       build configuration       #
 #---------------------------------#
 
-before_build:
-  - NuGet restore
-
-build:
-  project: serilog-extensions-webjobs.sln
-  verbosity: minimal
-
-after_build:
-  - msbuild src\Serilog.Extensions.WebJobs\Serilog.Extensions.WebJobs.csproj /nologo /verbosity:minimal /t:pack /p:Configuration=%CONFIGURATION%;PackageVersion=%APPVEYOR_BUILD_VERSION%;IncludeSource=true /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+build_script:
+  - dotnet pack -c %CONFIGURATION% --include-source /p:PackageVersion=%APPVEYOR_BUILD_VERSION%
 
 #---------------------------------#
 #      artifacts configuration    #
@@ -71,6 +68,10 @@ test_script:
   - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
   - pip install codecov
   - codecov -f "test\TestResults\Test.Coverage.xml"
+
+after_test: |
+  FOR /r %%F IN (*coveralls.net.exe) DO SET coveralls_exe=%%F
+  %coveralls_exe% --opencover test\TestResults\Test.Coverage.xml
 
 #---------------------------------#
 #     deployment configuration    #

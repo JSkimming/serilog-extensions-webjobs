@@ -7,10 +7,10 @@ namespace Serilog.Extensions.WebJobs
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using AutoFixture;
+    using AutoFixture.AutoMoq;
     using FluentAssertions;
     using Microsoft.Azure.WebJobs.Host.Bindings;
-    using Ploeh.AutoFixture;
-    using Ploeh.AutoFixture.AutoMoq;
     using Xunit;
 
     public class LoggerValueProviderShould

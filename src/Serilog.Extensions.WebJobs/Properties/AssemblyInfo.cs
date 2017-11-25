@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-#if NET45
+#if NET47
 [assembly: AssemblyTitle("Serilog.Extensions.WebJobs .NET Framework")]
 #else
 [assembly: AssemblyTitle("Serilog.Extensions.WebJobs .NET Standard")]

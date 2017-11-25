@@ -7,9 +7,9 @@ namespace Serilog
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using AutoFixture;
     using AutoTest.ArgNullEx;
     using AutoTest.ArgNullEx.Xunit;
-    using Ploeh.AutoFixture;
 
     [AttributeUsage(AttributeTargets.Method)]
     internal class RequiresArgNullExAutoMoqAttribute : RequiresArgumentNullExceptionAttribute

@@ -1,8 +1,11 @@
 # Serilog.Extensions.WebJobs
 
 [![NuGet Version](https://img.shields.io/nuget/v/Serilog.Extensions.WebJobs.svg)](https://www.nuget.org/packages/Serilog.Extensions.WebJobs "NuGet Version")
-[![Build status](https://ci.appveyor.com/api/projects/status/github/JSkimming/serilog-extensions-webjobs?branch=master&svg=true)](https://ci.appveyor.com/project/JSkimming/serilog-extensions-webjobs "Build status")
-[![codecov](https://codecov.io/gh/JSkimming/serilog-extensions-webjobs/branch/master/graph/badge.svg)](https://codecov.io/gh/JSkimming/serilog-extensions-webjobs "Code coverage")
+[![NuGet Downloads](https://img.shields.io/nuget/dt/Serilog.Extensions.WebJobs.svg)](https://www.nuget.org/packages/Serilog.Extensions.WebJobs "NuGet Downloads")
+[![Build status](https://img.shields.io/appveyor/ci/JSkimming/serilog-extensions-webjobs/master.svg?label=Windows)](https://ci.appveyor.com/project/JSkimming/serilog-extensions-webjobs "AppVeyor build status")
+[![Travis build Status](https://img.shields.io/travis/JSkimming/serilog-extensions-webjobs/master.svg?label=Linux/Mac)](https://travis-ci.org/JSkimming/serilog-extensions-webjobs "Travis build status")
+[![Codecov Coverage Status](https://img.shields.io/codecov/c/github/JSkimming/serilog-extensions-webjobs/master.svg?label=Codecov)](https://codecov.io/gh/JSkimming/serilog-extensions-webjobs "Codecov Coverage Status")
+[![Coveralls Coverage Status](https://img.shields.io/coveralls/github/JSkimming/serilog-extensions-webjobs/master.svg?label=Coveralls)](https://coveralls.io/r/JSkimming/serilog-extensions-webjobs "Coveralls Coverage Status")
 [![Latest release](https://img.shields.io/github/release/JSkimming/serilog-extensions-webjobs.svg)](https://github.com/JSkimming/serilog-extensions-webjobs/releases "Latest release")
 <!--[![Coverity Scan Status](https://img.shields.io/coverity/scan/4829.svg)](https://scan.coverity.com/projects/4829 "Coverity Scan Status")-->
 

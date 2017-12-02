@@ -22,7 +22,7 @@ namespace Serilog.Extensions.WebJobs
 
         public SerilogTraceWriterShould()
         {
-            var fixture = new Fixture().Customize(new AutoMoqCustomization());
+            IFixture fixture = new Fixture().Customize(new AutoMoqCustomization());
 
             _loggerMock = fixture.Create<Mock<ILogger>>();
             _loggerMock.Setup(l => l.ForContext(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<bool>()))

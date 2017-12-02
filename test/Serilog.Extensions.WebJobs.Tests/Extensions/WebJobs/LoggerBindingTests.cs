@@ -33,14 +33,14 @@ namespace Serilog.Extensions.WebJobs
                     "GetParameterInfo",
                     BindingFlags.NonPublic | BindingFlags.Static);
 
-            return method.GetParameters().Single();
+            return method?.GetParameters().Single();
         }
 
         public LoggerBindingShould()
         {
             _sut = new LoggerBinding(ParameterInfo, () => _currentLoggerFactory());
 
-            var fixture = new Fixture().Customize(new AutoMoqCustomization());
+            IFixture fixture = new Fixture().Customize(new AutoMoqCustomization());
 
             // A JToken is needed deep into the object graph for a ValueBindingContext
             fixture.Inject<JToken>(new JObject());

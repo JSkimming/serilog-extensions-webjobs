@@ -107,7 +107,7 @@ namespace Serilog.Extensions.WebJobs
             if (trace == null)
                 throw new ArgumentNullException(nameof(trace));
 
-            var configuration = new LoggerConfiguration()
+            LoggerConfiguration configuration = new LoggerConfiguration()
                 .MinimumLevel.Verbose()
                 .Enrich.WithProperty("FunctionInstanceId", functionInstanceId)
                 .WriteTo.TraceWriter(trace);

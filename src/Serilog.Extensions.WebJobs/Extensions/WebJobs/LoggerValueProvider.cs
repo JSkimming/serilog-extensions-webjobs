@@ -24,10 +24,7 @@ namespace Serilog.Extensions.WebJobs
         /// <param name="log">The <see cref="ILogger"/> value.</param>
         public LoggerValueProvider(ILogger log)
         {
-            if (log == null)
-                throw new ArgumentNullException(nameof(log));
-
-            _log = log;
+            _log = log ?? throw new ArgumentNullException(nameof(log));
         }
 
         /// <summary>

@@ -37,10 +37,8 @@ namespace Serilog.Extensions.WebJobs
         public SerilogTraceWriter(TraceLevel level, Func<ILogger> currentLoggerFactory)
             : base(level)
         {
-            if (currentLoggerFactory == null)
-                throw new ArgumentNullException(nameof(currentLoggerFactory));
-
-            _currentLoggerFactory = currentLoggerFactory;
+            _currentLoggerFactory =
+                currentLoggerFactory ?? throw new ArgumentNullException(nameof(currentLoggerFactory));
         }
 
         /// <summary>

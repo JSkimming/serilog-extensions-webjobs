@@ -37,10 +37,7 @@ namespace Serilog.Extensions.WebJobs
         /// </param>
         public TraceWriterSink(TraceWriter trace, IFormatProvider formatProvider = null)
         {
-            if (trace == null)
-                throw new ArgumentNullException(nameof(trace));
-
-            _trace = trace;
+            _trace = trace ?? throw new ArgumentNullException(nameof(trace));
             _formatProvider = formatProvider;
         }
 

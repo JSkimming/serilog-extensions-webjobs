@@ -23,7 +23,7 @@ namespace Serilog.Extensions.WebJobs
         /// </summary>
         /// <param name="level">The <see cref="TraceLevel" /> used to filter trace events.</param>
         public SerilogTraceWriter(TraceLevel level)
-            : this(level, () => Log.Logger)
+            : this(level, UseGlobalLogger)
         {
         }
 
@@ -64,6 +64,11 @@ namespace Serilog.Extensions.WebJobs
 
             LogEventLevel level = GetLogEventLevel(traceEvent.Level);
             logger.Write(level, traceEvent.Exception, traceEvent.Message);
+        }
+
+        private static ILogger UseGlobalLogger()
+        {
+            return Log.Logger;
         }
 
         private static LogEventLevel GetLogEventLevel(TraceLevel level)

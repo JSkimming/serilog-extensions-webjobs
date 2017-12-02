@@ -27,7 +27,7 @@ namespace Serilog.Extensions.WebJobs
         /// </summary>
         /// <param name="parameter">The parameter to bind a <see cref="LoggerValueProvider"/>.</param>
         public LoggerBinding(ParameterInfo parameter)
-            : this(parameter, () => Log.Logger)
+            : this(parameter, UseGlobalLogger)
         {
         }
 
@@ -95,6 +95,11 @@ namespace Serilog.Extensions.WebJobs
                     Description = "Function Logger",
                 }
             };
+        }
+
+        private static ILogger UseGlobalLogger()
+        {
+            return Log.Logger;
         }
 
         private Task<IValueProvider> BindAsync(Guid functionInstanceId, TraceWriter trace)

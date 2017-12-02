@@ -40,13 +40,9 @@ namespace Serilog.Extensions.WebJobs
         /// </param>
         public LoggerBinding(ParameterInfo parameter, Func<ILogger> currentLoggerFactory)
         {
-            if (parameter == null)
-                throw new ArgumentNullException(nameof(parameter));
-            if (currentLoggerFactory == null)
-                throw new ArgumentNullException(nameof(currentLoggerFactory));
-
-            _parameter = parameter;
-            _currentLoggerFactory = currentLoggerFactory;
+            _parameter = parameter ?? throw new ArgumentNullException(nameof(parameter));
+            _currentLoggerFactory =
+                currentLoggerFactory ?? throw new ArgumentNullException(nameof(currentLoggerFactory));
         }
 
         /// <summary>

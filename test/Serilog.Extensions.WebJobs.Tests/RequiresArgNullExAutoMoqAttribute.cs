@@ -49,7 +49,7 @@ namespace Serilog
         // ReSharper disable once UnusedParameter.Local
         private static ParameterInfo GetParameterInfo(object unused = null)
         {
-            var method =
+            MethodInfo method =
                 typeof(RequiresArgNullExAutoMoqAttribute).GetMethod(
                     "GetParameterInfo",
                     BindingFlags.NonPublic | BindingFlags.Static);
@@ -59,7 +59,7 @@ namespace Serilog
 
         private static IArgumentNullExceptionFixture CreateFixture(Assembly assemblyUnderTest)
         {
-            var fixture = new Fixture().Customize(new WebJobsCustomization());
+            IFixture fixture = new Fixture().Customize(new WebJobsCustomization());
 
             fixture.Inject(TestLogger.Value);
             fixture.Inject(ParameterInfo);
@@ -70,5 +70,4 @@ namespace Serilog
             return argNullFixture;
         }
     }
-
 }

@@ -27,7 +27,7 @@ namespace Serilog.Extensions.WebJobs
         /// </summary>
         /// <param name="parameter">The parameter to bind a <see cref="LoggerValueProvider"/>.</param>
         public LoggerBinding(ParameterInfo parameter)
-            : this(parameter, () => Log.Logger)
+            : this(parameter, UseGlobalLogger)
         {
         }
 
@@ -40,13 +40,9 @@ namespace Serilog.Extensions.WebJobs
         /// </param>
         public LoggerBinding(ParameterInfo parameter, Func<ILogger> currentLoggerFactory)
         {
-            if (parameter == null)
-                throw new ArgumentNullException(nameof(parameter));
-            if (currentLoggerFactory == null)
-                throw new ArgumentNullException(nameof(currentLoggerFactory));
-
-            _parameter = parameter;
-            _currentLoggerFactory = currentLoggerFactory;
+            _parameter = parameter ?? throw new ArgumentNullException(nameof(parameter));
+            _currentLoggerFactory =
+                currentLoggerFactory ?? throw new ArgumentNullException(nameof(currentLoggerFactory));
         }
 
         /// <summary>
@@ -97,12 +93,17 @@ namespace Serilog.Extensions.WebJobs
             };
         }
 
+        private static ILogger UseGlobalLogger()
+        {
+            return Log.Logger;
+        }
+
         private Task<IValueProvider> BindAsync(Guid functionInstanceId, TraceWriter trace)
         {
             if (trace == null)
                 throw new ArgumentNullException(nameof(trace));
 
-            var configuration = new LoggerConfiguration()
+            LoggerConfiguration configuration = new LoggerConfiguration()
                 .MinimumLevel.Verbose()
                 .Enrich.WithProperty("FunctionInstanceId", functionInstanceId)
                 .WriteTo.TraceWriter(trace);

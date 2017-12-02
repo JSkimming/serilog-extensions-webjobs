@@ -25,7 +25,7 @@ namespace Serilog.Extensions.WebJobs
 
         public TraceWriterSinkShould()
         {
-            var fixture = new Fixture().Customize(new AutoMoqCustomization());
+            IFixture fixture = new Fixture().Customize(new AutoMoqCustomization());
 
             // Freeze the injected mocks.
             _traceWriterMock = fixture.Freeze<Mock<TraceWriter>>();
@@ -64,7 +64,7 @@ namespace Serilog.Extensions.WebJobs
         public void EmitValidTraceEvents(string message, LogEventLevel logLevel, TraceLevel expected)
         {
             // Arrange
-            var logEvent = CreateLogEvent(logLevel, message);
+            LogEvent logEvent = CreateLogEvent(logLevel, message);
             Expression<Func<TraceEvent, bool>> expr = te => te.Message == message && te.Level == expected;
 
             // Act

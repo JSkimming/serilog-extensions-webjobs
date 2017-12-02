@@ -13,7 +13,10 @@ namespace Serilog.Extensions.WebJobs
     using FluentAssertions;
     using Microsoft.Azure.WebJobs.Host.Bindings;
     using Microsoft.Azure.WebJobs.Host.Protocols;
+    using Moq;
     using Newtonsoft.Json.Linq;
+    using Serilog.Core;
+    using Serilog.Events;
     using Xunit;
 
     public class LoggerBindingShould
@@ -33,14 +36,14 @@ namespace Serilog.Extensions.WebJobs
                     "GetParameterInfo",
                     BindingFlags.NonPublic | BindingFlags.Static);
 
-            return method.GetParameters().Single();
+            return method?.GetParameters().Single();
         }
 
         public LoggerBindingShould()
         {
             _sut = new LoggerBinding(ParameterInfo, () => _currentLoggerFactory());
 
-            var fixture = new Fixture().Customize(new AutoMoqCustomization());
+            IFixture fixture = new Fixture().Customize(new AutoMoqCustomization());
 
             // A JToken is needed deep into the object graph for a ValueBindingContext
             fixture.Inject<JToken>(new JObject());
@@ -118,6 +121,39 @@ namespace Serilog.Extensions.WebJobs
 
             // Assert
             actual.Should().NotBeNull().And.BeAssignableTo<LoggerValueProvider>();
+        }
+
+        [Fact]
+        public async Task UseTheGlobalLoggerIfNoneSpecified()
+        {
+            // Arrange - Use a different constructor to test whether the global logger is used.
+            var sut = new LoggerBinding(ParameterInfo);
+
+            // Set-up the global logger to be a ILogEventSink.
+            var mockSink = new Mock<ILogEventSink>();
+            Log.Logger = mockSink.As<ILogger>().Object;
+
+            // Act
+            var provider = (LoggerValueProvider)await sut.BindAsync(_bindingContext).ConfigureAwait(false);
+
+            // Assert
+            provider.Log.Error("A message");
+            mockSink.Verify(s => s.Emit(It.IsAny<LogEvent>()), Times.Once);
+        }
+
+        [Fact]
+        public async Task UseTheInjectedLoggerFactoryIfSpecified()
+        {
+            // Arrange - Set-up the injected logger to be a ILogEventSink.
+            var mockSink = new Mock<ILogEventSink>();
+            _currentLoggerFactory = () => mockSink.As<ILogger>().Object;
+
+            // Act
+            var provider = (LoggerValueProvider) await _sut.BindAsync(_bindingContext).ConfigureAwait(false);
+
+            // Assert
+            provider.Log.Error("A message");
+            mockSink.Verify(s => s.Emit(It.IsAny<LogEvent>()), Times.Once);
         }
     }
 }

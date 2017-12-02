@@ -14,8 +14,6 @@ namespace Serilog.Extensions.WebJobs
     /// </summary>
     public class LoggerValueProvider : IValueProvider
     {
-        private readonly ILogger _log;
-
         private Task<object> _asyncValue;
 
         /// <summary>
@@ -24,11 +22,13 @@ namespace Serilog.Extensions.WebJobs
         /// <param name="log">The <see cref="ILogger"/> value.</param>
         public LoggerValueProvider(ILogger log)
         {
-            if (log == null)
-                throw new ArgumentNullException(nameof(log));
-
-            _log = log;
+            Log = log ?? throw new ArgumentNullException(nameof(log));
         }
+
+        /// <summary>
+        /// Gets the <see cref="ILogger"/> value.
+        /// </summary>
+        public ILogger Log { get; }
 
         /// <summary>
         /// Gets the <see cref="Type"/> of the <see cref="ILogger"/> value.
@@ -39,12 +39,12 @@ namespace Serilog.Extensions.WebJobs
         /// Gets the <see cref="ILogger"/> value.
         /// </summary>
         /// <returns>A task that returns the value.</returns>
-        public Task<object> GetValueAsync() => _asyncValue ?? (_asyncValue = Task.FromResult<object>(_log));
+        public Task<object> GetValueAsync() => _asyncValue ?? (_asyncValue = Task.FromResult<object>(Log));
 
         /// <summary>
         /// Returns a string representation of the <see cref="ILogger"/> value.
         /// </summary>
         /// <returns>The string representation of the <see cref="ILogger"/> value.</returns>
-        public string ToInvokeString() => _log.ToString();
+        public string ToInvokeString() => Log.ToString();
     }
 }

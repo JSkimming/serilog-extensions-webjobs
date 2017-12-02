@@ -22,7 +22,7 @@ namespace Serilog.Extensions.WebJobs
 
         public SerilogTraceWriterShould()
         {
-            var fixture = new Fixture().Customize(new AutoMoqCustomization());
+            IFixture fixture = new Fixture().Customize(new AutoMoqCustomization());
 
             _loggerMock = fixture.Create<Mock<ILogger>>();
             _loggerMock.Setup(l => l.ForContext(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<bool>()))
@@ -89,6 +89,25 @@ namespace Serilog.Extensions.WebJobs
 
             // Assert
             _loggerMock.Verify(l => l.ForContext("WebJobsEventSource", source, false), Times.Once());
+        }
+
+        [Fact]
+        public void WriteToTheGlobalLoggerIfNoneSpecified()
+        {
+            // Arrange - Use a different constructor to test whether the global logger is used.
+            var sut = new SerilogTraceWriter(TraceLevel.Info);
+
+            // Set-up the global logger to be the mocked logger.
+            Log.Logger = _loggerMock.Object;
+
+            const string message = "Some Random Message";
+            TraceEvent traceEvent = CreateTraceEvent(TraceLevel.Error, message);
+
+            // Act
+            sut.Trace(traceEvent);
+
+            // Assert
+            _loggerMock.Verify(l => l.Write(LogEventLevel.Error, default(Exception), message), Times.Once);
         }
     }
 }

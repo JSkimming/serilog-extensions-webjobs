@@ -20,7 +20,7 @@ namespace Serilog.Extensions.WebJobs
 
         public LoggerValueProviderShould()
         {
-            var fixture = new Fixture().Customize(new AutoMoqCustomization());
+            IFixture fixture = new Fixture().Customize(new AutoMoqCustomization());
 
             _logger = fixture.Freeze<ILogger>();
 
